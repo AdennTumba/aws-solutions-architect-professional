@@ -7,8 +7,7 @@ Este repositório tem como objetivo servir como guia de estudos para a certifica
 2. [EC2](#EC2)
 3. [S3](#S3)
 4. [VPC](#VPC)
-5. [ROUTE 53](#ROUTE53)
-
+5. [ROUTE 53](#ROUTE-53)
 
 # IAM 
 ## IAM (Identity and Access management)
