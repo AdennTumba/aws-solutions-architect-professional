@@ -4,7 +4,10 @@ Este repositório tem como objetivo servir como guia de estudos para a certifica
 
 ## Topicos 
 1. [IAM](#IAM)
-2. [S3](#S3)
+2. [EC2](#EC2)
+3. [S3](#S3)
+4. [VPC](#VPC)
+5. [ROUTE 53](#ROUTE53)
 
 
 # IAM 
@@ -19,13 +22,9 @@ Este repositório tem como objetivo servir como guia de estudos para a certifica
     - Roles - Isso é algo que pode ser assumido por uma entidade como usuário ou grupo (isso é semelhante à autenticação)
     - Policies - define as permissões que você tem nos recursos que deseja acessar (semelhante à autorização).
 
-    <br>
-
 - As políticas podem ser gerenciadas de duas maneiras:
     - Policies gerenciadas: AWS gerenciado e gerenciado pelo cliente
     - Policies em linha
-
-     <br>
   
 - As políticas podem ser de dois tipos:
 
@@ -36,8 +35,6 @@ Este repositório tem como objetivo servir como guia de estudos para a certifica
     - Limite de permissões: Este tipo de policie define o número máximo de permissões que as policies baseadas em identidade podem conceder a uma entidade.  
 
     - Policies baseadas em sessão: Esta policies transmite em um parâmetro ao criar de forma programática uma sessão temporária para uma role ou usuário federado.
-
-     <br>
 
 - IAM tem a hierarquia de permissão de:
     - Explicit deny: a política mais restritiva vence.
@@ -58,7 +55,7 @@ Este repositório tem como objetivo servir como guia de estudos para a certifica
     - Por padrão  o S3 tem  disponibilidade de 4 9s (99,99%), e durabilidade de 11 9s (99,999999999%)
     - Os arquivos podem ser carregados em buckets que nada mais são do que pastas que hospedam os arquivos
     - No upload bem-sucedido, S3 retorna um código de status HTTP 200
-    - Por padrão, todos os baldes são privados
+    - Por padrão, todos os bucket são privados
 
 ## S3 Consistency Model
 
@@ -93,8 +90,6 @@ Este repositório tem como objetivo servir como guia de estudos para a certifica
     - Projetada para fornecer disponibilidade de 99,99% em um determinado ano
     - Suporte a SSL para dados em trânsito e criptografia para dados ociosos
     - Gerenciamento de ciclo de vida do S3 para migração automática de objetos a outras classes de armazenamento do S3 
-    
-    <br/>
 
 - S3 Intelligent Tiering: A Amazon S3 Intelligent-Tiering (S3 Intelligent-Tiering) é o primeiro armazenamento em nuvem que reduz automaticamente os custos de armazenamento em um nível de objeto granular, movendo automaticamente os dados para o nível de acesso mais econômico com base na frequência de acesso, sem impacto sobre a performance, taxas de recuperação ou sobrecarga operacional. A S3 Intelligent-Tiering oferece latência em milissegundos e alta performance de taxa de transferência para dados acessados com muita frequência, com pouca frequência e agora raramente acessados nos níveis Frequent Access, Infrequent Access e o novo Archive Instant Access. Agora, você pode usar a S3 Intelligent-Tiering como a classe de armazenamento padrão para praticamente qualquer workload, especialmente data lakes, análise de dados, novas aplicações e conteúdo gerado pelo usuário.
 
@@ -106,8 +101,6 @@ Este repositório tem como objetivo servir como guia de estudos para a certifica
     - Ativa recursos de arquivamento assíncrono automático opcionais para objetos que se tornam raramente acessados
     - Os níveis de acesso para arquivamento e acesso para arquivamento profundo têm o mesmo desempenho que as classes Glacier e Glacier Deep Archive e economizam até 95% para objetos raramente acessados
     - Sem sobrecarga operacional, sem encargos de ciclo de vida, sem encargos de recuperação e sem duração mínima de armazenamento
-    
-    <br/>
 
 - S3 IA (Infrequently accessed): O S3 Standard-IA é indicado para dados acessados com menos frequência, mas que exigem acesso rápido quando necessários. A categoria S3 Standard – IA oferece os altos níveis de resiliência e throughput e a baixa latência da categoria S3 Standard, com taxas reduzidas por GB de armazenamento e GB de recuperação. A combinação de baixo custo e alta performance tornam a classe S3 Standard-IA ideal para armazenamento de longa duração, backups e datastores para arquivos de recuperação de desastres.
 
@@ -121,8 +114,6 @@ Este repositório tem como objetivo servir como guia de estudos para a certifica
     - Suporte a SSL para dados em trânsito e criptografia para dados ociosos
     - Gerenciamento de ciclo de vida do S3 para migração automática de objetos a outras classes de armazenamento do S3
 
-    <br/>
-
 - S3 IA 1 Zone: O S3 One Zone-IA é indicado para dados acessados com menos frequência, mas que exigem acesso rápido quando necessários. Ao contrário de outras classes de armazenamento do S3, que armazenam dados em no mínimo três Zonas de disponibilidade (AZs), a S3 One Zone-IA armazena dados em uma única AZ, com um custo 20% inferior ao S3 Standard-IA. A classe S3 One Zone-IA é ideal para clientes que querem uma opção de menor custo para dados acessados com pouca frequência, mas não precisam da disponibilidade e da resiliência S3 Standard ou S3 Standard-IA. É uma ótima opção para armazenar cópias de backup secundária de dados locais ou que possam ser recriados com facilidade. 
 
     ### Key Features:
@@ -132,8 +123,6 @@ Este repositório tem como objetivo servir como guia de estudos para a certifica
     - Projetada para fornecer disponibilidade de 99,5% em um determinado ano
     - Suporte a SSL para dados em trânsito e criptografia para dados ociosos
     - OBS: Como a categoria S3 One Zone – IA armazena dados em uma única zona de disponibilidade da AWS, os dados armazenados nessa categoria de armazenamento serão perdidos em caso de destruição da zona de disponibilidade.
-
-    <br/>
 
 - S3 Glacier Instant Retrieval: Amazon S3 Glacier Instant Retrieval é uma nova classe de armazenamento de arquivos que oferece o armazenamento de custo mais baixo para dados de longa duração, que raramente são acessados e exigem recuperação em milissegundos. Com a S3 Glacier Instant Retrieval, você pode economizar até 68% nos custos de armazenamento em comparação com o uso da classe de armazenamento S3 Standard-Infrequent Access (S3 Standard-IA), quando seus dados são acessados uma vez por trimestre. O S3 Glacier Instant Retrieval é ideal para arquivar dados que precisam de acesso imediato, como imagens médicas, recursos de mídia de notícias ou arquivos de conteúdo gerado pelo usuário.
 
@@ -145,8 +134,6 @@ Este repositório tem como objetivo servir como guia de estudos para a certifica
     - Projetado para 99,9% de disponibilidade de dados em um determinado ano
     - 128 KB de tamanho mínimo do objeto
 
-    <br/>
-
 - S3 Glacier Flexible Retrieval (anteriormente S3 Glacier): O S3 Glacier Flexible Retrieval oferece armazenamento de baixo custo, custo até 10% menor (do que o S3 Glacier Instant Retrieval), para dados de arquivamento que são acessados 1 a 2 vezes por ano e recuperados de forma assíncrona. Para dados de arquivo que não exigem acesso imediato, mas precisam de flexibilidade para a recuperação de grandes conjuntos de dados sem custo, como casos de uso de backup ou recuperação de desastres, o S3 Glacier Flexible Retrieval (a antiga S3 Glacier) é a classe de armazenamento ideal. A S3 Glacier Flexible Retrieval oferece o maior número de opções de velocidade de recuperação que equilibram o custo com tempos de acesso que variam de minutos a horas e com recuperações gratuitas em massa.  uma solução ideal para backup, recuperação de desastres, necessidades de armazenamento externo de dados e para quando alguns dados ocasionalmente precisam ser recuperados em minutos e você não quer se preocupar com custos.
 
     ### Key Features:
@@ -156,8 +143,6 @@ Este repositório tem como objetivo servir como guia de estudos para a certifica
     - Suporte a SSL para dados em trânsito e criptografia para dados ociosos
     - Ideal para casos de uso de backup e recuperação de desastres quando grandes conjuntos de dados ocasionalmente precisam ser recuperados em minutos, sem preocupação com custos
     - Tempos de recuperação configuráveis, de minutos a horas, com recuperações em massa gratuitas
-
-    <br/>
 
 - S3 Glacier deep archive: O S3 Glacier Deep Archive é a classe de armazenamento mais barata do Amazon S3 e oferece suporte à retenção e preservação digitais de longo prazo para dados que podem ser acessados uma ou duas vezes por ano. Essa classe é projetada para clientes que mantêm conjuntos de dados por 7 a 10 anos ou mais para cumprir requisitos de conformidade normativa, especialmente em setores altamente regulados como serviços financeiros, saúde e setores públicos.
 
@@ -236,3 +221,63 @@ Criptografia do lado do cliente, o próprio cliente gerencia a criptografia / de
 ## AWS Snowball
 
 - O AWS Snowball é um serviço que fornece dispositivos robustos e seguros para que você possa utilizar os recursos de armazenamento e computação da AWS em seus ambientes de borda e transferir dados de e para a AWS. Esses dispositivos robustos são comumente chamados de dispositivos AWS Snowball ou AWS Snowball Edge.
+
+
+# Route 53
+## Route 53 
+
+- O Amazon Route 53 é um web service Domain Name System (DNS) na nuvem altamente disponível e escalável. Ele foi projetado para oferecer aos desenvolvedores e empresas uma maneira altamente confiável e econômica de direcionar os usuários finais aos aplicativos de Internet, convertendo nomes como www.example.com para endereços IP numéricos como 192.0.2.1, usados pelos computadores para se conectarem entre si. O Amazon Route 53 também é totalmente compatível com o IPv6.
+
+- O sistema DNS da internet funciona praticamente como uma agenda de telefone ao gerenciar o mapeamento entre nomes e números. Os servidores DNS convertem solicitações de nomes em endereços IP, controlando qual servidor um usuário final alcançará quando digitar um nome de domínio no navegador da web. Essas solicitações são chamadas consultas.
+
+### Tipos de serviço DNS
+- DNS autoritativo: um DNS autoritativo disponibiliza um mecanismo de atualização que os desenvolvedores usam para gerenciar seus nomes DNS públicos. Em seguida, ele responde a consultas do DNS, convertendo nomes de domínio em endereço IP de forma que os computadores possam se comunicar entre si. O DNS autoritativo tem a autoridade final sobre o domínio, além de ser o responsável pela disponibilização de respostas para os servidores DNS recursivos com informações de endereço IP. O Amazon Route 53 é um sistema DNS autoritativo.
+
+- DNS recursivo: geralmente, os clientes não fazem consultas diretamente para os serviços DNS autoritativos. Em vez disso, eles se conectam de modo geral a outro tipo de serviço DNS conhecido como resolvedor ou serviço DNS recursivo. Um serviço DNS recursivo age como o concierge de um hotel: embora não tenha nenhum registro DNS, ele atua como um intermediário que pode obter informações de DNS por você. Se um DNS recursivo tiver a referência do DNS armazena em cache, ou armazenada durante um período, ele responderá a consulta do DNS ao disponibilizar as informações sobre a origem ou o IP. Caso contrário, ele encaminhará a consulta para um ou mais servidores DNS autoritativos para encontrar as informações.
+
+### Existem diferentes tipos de registros usados ​​no sistema DNS:
+- SOA records
+    - O registro SOA especifica informações autoritativas sobre uma zona DNS, incluindo o servidor de nome primário e o e-mail do administrador do domínio.
+
+- A records
+    - O registro A é o tipo principal, conhecido também como registro do host. Ele faz o vínculo do domínio com o endereço IP do servidor físico que hospeda o site e outros serviços desse domínio.
+
+- CNAME records
+    - O registro CNAME, conhecido também como registro de nome canônico, faz o vínculo de um alias de domínio ou subdomínio para um outro domínio, ou seja, nunca devem apontar para número IP.
+
+- MX records
+    - O registro MX é responsável por direcionar os emails do domínio (ex: contato@dominio.com.br) para o servidor que hospeda todas as contas e configurações relacionadas. Você pode, por exemplo, usar um serviço exclusivo de email em um servidor e deixar os arquivos do site em outro.
+
+- PTR records
+    - Um registro de ponteiro (PTR) DNS fornece o nome de domínio associado a um endereço de IP. Um registro PTR DNS é exatamente o oposto do registro "A", que fornece o endereço de IP associado a um nome de domínio. O seja, Os registros PTR atribuem endereços IP a um nome de servidor, em vez de associar um nome de servidor a um endereço IP.
+
+- Alias records
+    - Um registro ALIAS é um tipo de registro DNS que aponta seu nome de domínio para um nome de host em vez de um endereço IP.
+
+- NS records
+    - O registro no nameserver indica qual servidor de DNS é autoritativo para o domínio em questão (por exemplo, qual servidor contém os registros DNS reais). Basicamente, os registros no NS dizem à internet onde encontrar o endereço IP de um domínio. 
+
+ ### O que é o TTL?
+ - O Time to Live ou simplesmente o TTL, como objetivo terminar o tempo de expiração de um determinado registro DNS. O TTL é utlizado para informar a um DNS Resolver. Como por exempo o (8.8.8.8). No entanto, o tempo deve manter o registro em cache. Quanto maior o TTL, maior será o tempo em cache. 
+
+### Diferentes tipos de policies de resolução suportadas pelo Route53
+- Simple Routing Policy
+    - O Simple Routing Policy, também pode fornecer vários endereços IP, mas não pode associar a verificação de integridade de todos os endereços IP. O AWS Route 53 responde às consultas de DNS com base nos valores no conjunto de registros de recursos. Por exemplo, endereço IP em um registro A
+
+- Weighted Routing Policy
+    - Usando o Weighted Routing Policy, pode-se rotear o tráfego com base no peso atribuído a diferentes endereços IP. Por exemplo, 70% do tráfego para IP X e outros 30% para IP Y, que é então roteado/distribuído proporcionalmente.
+
+- Latency Based Routing Policy
+    - O Latency Based Routing Policy como o proprio nome ja diz, é baseada na latência de resposta do local do usuário. Usando essas informações, a solicitação pode ser roteada para diferentes servidores.
+
+- Failover Based Routing Policy
+    - O Failover Based Routing Policy, funciona como um ativo, um passivo. Se a verificação de integridade ativa começar a falhar, o tráfego roteará para a configuração passiva.
+
+- Geographical Routing Policy
+    - Com Geographical Routing Policy, podemos definir que o usuário na América do Sul deve ser roteado apenas para o servidor da América de Sul. No entanto isso é diferente da política de roteamento baseada em latência, e é mais codificado.
+
+- Geographical Proximity Routing Policy
+    - O Geographical Proximity Routing Policy, é usado  quando quisermos encaminhar o tráfego com base no local de seus recursos e, opcionalmente, alternar o tráfego de recursos em um local para recursos em outro local.
+
+- Multivalue Answer Routing Policy
+    - O Multivalue Answer Routing Policy, é usado quando quiser que o Route 53 responda a consultas de DNS com até oito registros íntegros selecionados aleatoriamente.
